@@ -8,12 +8,15 @@ namespace FullstackTestCS2
     public partial class MainWindow : Window
     {
         private readonly HelpDeskContext _context;
-        
-        // Objetos para controle de edição (selecionados no grid)
+
+
+
         private Cliente? _clienteSelecionado;
         private Tecnico? _tecnicoSelecionado;
         private Equipamento? _equipamentoSelecionado;
         private Chamado? _chamadoSelecionado;
+
+
 
         public MainWindow(HelpDeskContext context)
         {
@@ -21,6 +24,8 @@ namespace FullstackTestCS2
             _context = context;
             AtualizarTodosGrids();
         }
+
+
 
         private void AtualizarTodosGrids()
         {
@@ -30,7 +35,8 @@ namespace FullstackTestCS2
             DgChamados.ItemsSource = _context.Chamados.ToList();
         }
 
-        #region CRUD CLIENTE
+
+
         private void BtnClienteSalvar_Click(object sender, RoutedEventArgs e)
         {
             var cliente = _clienteSelecionado ?? new Cliente();
@@ -43,7 +49,6 @@ namespace FullstackTestCS2
             _context.SaveChanges();
             BtnClienteLimpar_Click(sender, e);
         }
-
         private void BtnClienteBuscar_Click(object sender, RoutedEventArgs e)
         {
             string busca = TxtClienteBusca.Text;
@@ -58,7 +63,6 @@ namespace FullstackTestCS2
                 DgClientes.ItemsSource = query.Where(c => c.Nome.Contains(busca) || c.Empresa.Contains(busca)).ToList();
             }
         }
-
         private void BtnClienteExcluir_Click(object sender, RoutedEventArgs e)
         {
             if (_clienteSelecionado != null)
@@ -68,7 +72,6 @@ namespace FullstackTestCS2
                 BtnClienteLimpar_Click(sender, e);
             }
         }
-
         private void DgClientes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _clienteSelecionado = DgClientes.SelectedItem as Cliente;
@@ -80,17 +83,16 @@ namespace FullstackTestCS2
                 TxtClienteTelefone.Text = _clienteSelecionado.Telefone;
             }
         }
-
         private void BtnClienteLimpar_Click(object sender, RoutedEventArgs e)
         {
             _clienteSelecionado = null;
-            TxtClienteNome.Clear(); TxtClienteEmail.Clear(); 
+            TxtClienteNome.Clear(); TxtClienteEmail.Clear();
             TxtClienteEmpresa.Clear(); TxtClienteTelefone.Clear(); TxtClienteBusca.Clear();
             DgClientes.ItemsSource = _context.Clientes.ToList();
         }
-        #endregion
 
-        #region LÓGICA SIMILAR PARA TÉCNICOS (Resumida para brevidade)
+
+
         private void BtnTecnicoSalvar_Click(object sender, RoutedEventArgs e)
         {
             var t = _tecnicoSelecionado ?? new Tecnico();
@@ -103,7 +105,6 @@ namespace FullstackTestCS2
             _context.SaveChanges();
             AtualizarTodosGrids();
         }
-
         private void BtnTecnicoBuscar_Click(object sender, RoutedEventArgs e)
         {
             if (int.TryParse(TxtTecnicoBusca.Text, out int id))
@@ -111,7 +112,6 @@ namespace FullstackTestCS2
             else
                 DgTecnicos.ItemsSource = _context.Tecnicos.Where(x => x.Nome.Contains(TxtTecnicoBusca.Text)).ToList();
         }
-
         private void DgTecnicos_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _tecnicoSelecionado = DgTecnicos.SelectedItem as Tecnico;
@@ -123,14 +123,13 @@ namespace FullstackTestCS2
                 ChkTecnicoDisponivel.IsChecked = _tecnicoSelecionado.Disponivel;
             }
         }
-        
         private void BtnTecnicoExcluir_Click(object sender, RoutedEventArgs e)
         {
-             if (_tecnicoSelecionado != null) { _context.Tecnicos.Remove(_tecnicoSelecionado); _context.SaveChanges(); AtualizarTodosGrids(); }
+            if (_tecnicoSelecionado != null) { _context.Tecnicos.Remove(_tecnicoSelecionado); _context.SaveChanges(); AtualizarTodosGrids(); }
         }
-        #endregion
 
-        #region LÓGICA EQUIPAMENTOS E CHAMADOS
+
+
         private void BtnEquipamentoSalvar_Click(object sender, RoutedEventArgs e)
         {
             var eq = _equipamentoSelecionado ?? new Equipamento();
@@ -142,7 +141,6 @@ namespace FullstackTestCS2
             _context.SaveChanges();
             AtualizarTodosGrids();
         }
-
         private void BtnEquipamentoBuscar_Click(object sender, RoutedEventArgs e)
         {
             if (int.TryParse(TxtEquipamentoBusca.Text, out int id))
@@ -150,17 +148,19 @@ namespace FullstackTestCS2
             else
                 DgEquipamentos.ItemsSource = _context.Equipamentos.Where(x => x.Patrimonio.Contains(TxtEquipamentoBusca.Text)).ToList();
         }
-
         private void DgEquipamentos_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _equipamentoSelecionado = DgEquipamentos.SelectedItem as Equipamento;
-            if (_equipamentoSelecionado != null) {
+            if (_equipamentoSelecionado != null)
+            {
                 TxtEquipPatrimonio.Text = _equipamentoSelecionado.Patrimonio;
                 TxtEquipModelo.Text = _equipamentoSelecionado.Modelo;
                 TxtEquipTipo.Text = _equipamentoSelecionado.Tipo;
                 TxtEquipStatus.Text = _equipamentoSelecionado.Status;
             }
         }
+
+
 
         private void BtnChamadoSalvar_Click(object sender, RoutedEventArgs e)
         {
@@ -173,7 +173,6 @@ namespace FullstackTestCS2
             _context.SaveChanges();
             AtualizarTodosGrids();
         }
-
         private void BtnChamadoBuscar_Click(object sender, RoutedEventArgs e)
         {
             if (int.TryParse(TxtChamadoBusca.Text, out int id))
@@ -181,20 +180,20 @@ namespace FullstackTestCS2
             else
                 DgChamados.ItemsSource = _context.Chamados.Where(x => x.Titulo.Contains(TxtChamadoBusca.Text)).ToList();
         }
-
         private void DgChamados_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _chamadoSelecionado = DgChamados.SelectedItem as Chamado;
-            if (_chamadoSelecionado != null) {
+            if (_chamadoSelecionado != null)
+            {
                 TxtChamadoTitulo.Text = _chamadoSelecionado.Titulo;
                 TxtChamadoDesc.Text = _chamadoSelecionado.Descricao;
                 TxtChamadoStatus.Text = _chamadoSelecionado.Status;
                 TxtChamadoCliente.Text = _chamadoSelecionado.NomeCliente;
             }
         }
-        #endregion
 
-        // Extras para UX
+
+
         private void DgClientes_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e) => DgClientes_SelectionChanged(sender, null!);
     }
 }
