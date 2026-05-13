@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -8,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace FullstackTestCS2
 {
-    internal class HelpDeskContextFactory
+    public class HelpDeskContextFactory : IDesignTimeDbContextFactory<HelpDeskContext>
     {
         public HelpDeskContext CreateDbContext(string[] args)
         {
             var config = new ConfigurationBuilder()
-                .AddUserSecrets<MainWindow>()
+                .AddUserSecrets<HelpDeskContextFactory>()
                 .Build();
             var conexao = ConnectionHelper.GetConnectionString(config);
 

@@ -1,12 +1,206 @@
 ﻿<Window x:Class="FullstackTestCS2.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:FullstackTestCS2"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Sistema Help Desk - Gestão Geral"
+        Height="650"
+        Width="900"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <TabControl>
+            <TabItem Header="Clientes">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
+                    <StackPanel Grid.Row="0"
+                            Orientation="Horizontal"
+                            Margin="0,0,0,10">
+                        <TextBox x:Name="TxtClienteBusca"
+                                Width="200"
+                                Margin="0,0,5,0"
+                                Tag="Buscar por ID ou Nome..."/>
+                        <Button Content="Buscar"
+                                Click="BtnClienteBuscar_Click"
+                                Width="80"/>
+                        <Button Content="Limpar/Atualizar"
+                                Click="BtnClienteLimpar_Click"
+                                Margin="5,0,0,0"/>
+                    </StackPanel>
+
+                    <UniformGrid Grid.Row="1"
+                            Columns="2"
+                            Margin="0,0,0,10">
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Nome:"/>
+                            <TextBox x:Name="TxtClienteNome"/>
+                            <TextBlock Text="Email:"/>
+                            <TextBox x:Name="TxtClienteEmail"/>
+                        </StackPanel>
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Empresa:"/>
+                            <TextBox x:Name="TxtClienteEmpresa"/>
+                            <TextBlock Text="Telefone:"/>
+                            <TextBox x:Name="TxtClienteTelefone"/>
+                            <Button Content="Salvar Cliente"
+                                    Click="BtnClienteSalvar_Click"
+                                    Margin="0,10,0,0"
+                                    Background="LightGreen"/>
+                            <Button Content="Excluir"
+                                    Click="BtnClienteExcluir_Click"
+                                    Margin="0,5,0,0"
+                                    Background="LightCoral"/>
+                        </StackPanel>
+                    </UniformGrid>
+
+                    <DataGrid Grid.Row="2"
+                            x:Name="DgClientes"
+                            AutoGenerateColumns="True"
+                            IsReadOnly="True"
+                              SelectionChanged="DgClientes_SelectionChanged"
+                            MouseDoubleClick="DgClientes_MouseDoubleClick"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Técnicos">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0"
+                            Orientation="Horizontal"
+                            Margin="0,0,0,10">
+                        <TextBox x:Name="TxtTecnicoBusca"
+                                Width="200"
+                                Margin="0,0,5,0"/>
+                        <Button Content="Buscar"
+                                Click="BtnTecnicoBuscar_Click"
+                                Width="80"/>
+                    </StackPanel>
+
+                    <UniformGrid Grid.Row="1"
+                            Columns="2">
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Nome:"/>
+                            <TextBox x:Name="TxtTecnicoNome"/>
+                            <TextBlock Text="Especialidade:"/>
+                            <TextBox x:Name="TxtTecnicoEspecialidade"/>
+                        </StackPanel>
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Email:"/>
+                            <TextBox x:Name="TxtTecnicoEmail"/>
+                            <CheckBox x:Name="ChkTecnicoDisponivel"
+                                    Content="Disponível"
+                                    Margin="0,5"/>
+                            <Button Content="Salvar Técnico"
+                                    Click="BtnTecnicoSalvar_Click"
+                                    Background="LightGreen"/>
+                            <Button Content="Excluir"
+                                    Click="BtnTecnicoExcluir_Click"
+                                    Margin="0,5,0,0"
+                                    Background="LightCoral"/>
+                        </StackPanel>
+                    </UniformGrid>
+                    <DataGrid Grid.Row="2"
+                            x:Name="DgTecnicos"
+                            AutoGenerateColumns="True"
+                            SelectionChanged="DgTecnicos_SelectionChanged"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Equipamentos">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0"
+                            Orientation="Horizontal"
+                            Margin="0,0,0,10">
+                        <TextBox x:Name="TxtEquipamentoBusca"
+                                Width="200"
+                                Margin="0,0,5,0"/>
+                        <Button Content="Buscar"
+                                Click="BtnEquipamentoBuscar_Click"
+                                Width="80"/>
+                    </StackPanel>
+                    <UniformGrid Grid.Row="1"
+                            Columns="2">
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Patrimônio:"/>
+                            <TextBox x:Name="TxtEquipPatrimonio"/>
+                            <TextBlock Text="Tipo (ex: Notebook):"/>
+                            <TextBox x:Name="TxtEquipTipo"/>
+                        </StackPanel>
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Modelo:"/>
+                            <TextBox x:Name="TxtEquipModelo"/>
+                            <TextBlock Text="Status:"/>
+                            <TextBox x:Name="TxtEquipStatus"/>
+                            <Button Content="Salvar Equipamento"
+                                    Click="BtnEquipamentoSalvar_Click"
+                                    Margin="0,5"
+                                    Background="LightGreen"/>
+                        </StackPanel>
+                    </UniformGrid>
+                    <DataGrid Grid.Row="2"
+                            x:Name="DgEquipamentos"
+                            AutoGenerateColumns="True"
+                            SelectionChanged="DgEquipamentos_SelectionChanged"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Chamados">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0"
+                            Orientation="Horizontal"
+                            Margin="0,0,0,10">
+                        <TextBox x:Name="TxtChamadoBusca"
+                                Width="200"
+                                Margin="0,0,5,0"/>
+                        <Button Content="Buscar"
+                                Click="BtnChamadoBuscar_Click"
+                                Width="80"/>
+                    </StackPanel>
+                    <UniformGrid Grid.Row="1"
+                            Columns="2">
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Título:"/>
+                            <TextBox x:Name="TxtChamadoTitulo"/>
+                            <TextBlock Text="Descrição:"/>
+                            <TextBox x:Name="TxtChamadoDesc"
+                                    Height="50"
+                                    TextWrapping="Wrap"
+                                    AcceptsReturn="True"/>
+                        </StackPanel>
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Status:"/>
+                            <TextBox x:Name="TxtChamadoStatus"/>
+                            <TextBlock Text="Cliente:"/>
+                            <TextBox x:Name="TxtChamadoCliente"/>
+                            <Button Content="Abrir/Atualizar Chamado"
+                                    Click="BtnChamadoSalvar_Click"
+                                    Margin="0,5"
+                                    Background="LightGreen"/>
+                        </StackPanel>
+                    </UniformGrid>
+                    <DataGrid Grid.Row="2"
+                            x:Name="DgChamados"
+                            AutoGenerateColumns="True"
+                            SelectionChanged="DgChamados_SelectionChanged"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

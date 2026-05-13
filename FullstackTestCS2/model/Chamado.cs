@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FullstackTestCS2.model
 {
-    internal class Chamado
+    public class Chamado
     {
         public int Id { get; set; }
         public string Titulo { get; set; } = string.Empty;
